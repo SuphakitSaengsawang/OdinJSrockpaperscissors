@@ -46,3 +46,9 @@ function getComputerChoice() {
 //check result here!
 console.log(`Bot threw: \"  ${getComputerChoice()}  \"`);
 
+let humanScore = 0;
+let computerScore = 0;
+
+function playRound(){
+
+}
