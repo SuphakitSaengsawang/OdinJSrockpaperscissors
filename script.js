@@ -46,9 +46,21 @@ function getComputerChoice() {
 //check result here!
 console.log(`Bot threw: \"  ${getComputerChoice()}  \"`);
 
+//show who is winning here!
+function ChoiceCompre() {
+    // same choices = draw
+    if (getHumanChoice === getComputerChoice) {
+        console.log(`Draw`);
+    } else { 
+        console.log(`Someone is winning here!`); // differnt choices = someone is winning here!
+    }
+}
+
+ChoiceCompre();
+
 let humanScore = 0;
 let computerScore = 0;
 
-function playRound(){
+function playRound(humanScore, computerScore) {
 
 }
