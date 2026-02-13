@@ -60,15 +60,46 @@ function scoreCount(roundResult) {
   }
 }
 
-// run one round
-const human = getHumanChoice();
-const computer = getComputerChoice();
+function playGame() {
+  // reset scores each new game
+  humanScore = 0;
+  computerScore = 0;
 
-console.log(`You chose "${human}"`);
-console.log(`Bot threw "${computer}"`);
+  for (let i = 1; i <= 5; i++) {
+    console.log(`--- Round ${i} ---`);
 
-const roundResult = playRound(human, computer);
-console.log(roundResult);
+    const human = getHumanChoice();
 
-scoreCount(roundResult);
-console.log(`Human: ${humanScore} VS Computer: ${computerScore}`);
+    // stop game if user cancels
+    if (human === null) {
+      console.log("Game cancelled.");
+      return;
+    }
+
+    const computer = getComputerChoice();
+
+    console.log(`You chose: "${human}"`);
+    console.log(`Bot threw: "${computer}"`);
+
+    const roundResult = playRound(human, computer);
+    console.log(roundResult);
+
+    scoreCount(roundResult);
+
+    console.log(`Score → Human: ${humanScore} | Computer: ${computerScore}`);
+  }
+
+  // final winner
+  console.log("=== Final Result ===");
+
+  if (humanScore > computerScore) {
+    console.log("🏆 You win the game!");
+  } else if (computerScore > humanScore) {
+    console.log("🤖 CPU wins the game!");
+  } else {
+    console.log("🤝 It's a tie game!");
+  }
+}
+
+playGame();
+
