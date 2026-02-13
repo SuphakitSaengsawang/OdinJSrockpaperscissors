@@ -1,66 +1,74 @@
 function getHumanChoice() {
-    let HumanChoice = prompt(
-        `🎮 Welcome to Rock–Paper–Scissors!
+  let HumanChoice = prompt(
+`🎮 Welcome to Rock–Paper–Scissors!
 The bot has already made its choice.
 Please choose one:
 A) Rock
 B) Paper
 C) Scissors
 Enter A, B, or C:`
-    );
-    let Humanresult = HumanChoice;
-    //convert number into my desired result of Rock-paper-scissors.
-    if (Humanresult == `A`) {
-        Humanresult = `Rock`;
-    } else if (Humanresult == `B`) {
-        Humanresult = `Paper`;
-    } else if (Humanresult == `C`) {
-        Humanresult = `Scissor`;
-    } else {
-        console.log(`Wrong answer`)
-    }
+  );
 
+  if (HumanChoice === null) return null; // user pressed cancel
 
-    return Humanresult
+  let choice = HumanChoice.trim().toLowerCase();
+
+  if (choice === "a") return "Rock";
+  if (choice === "b") return "Paper";
+  if (choice === "c") return "Scissor";
+
+  console.log("Wrong answer");
+  return null;
 }
-
-console.log(`You Chose \"  ${getHumanChoice()}  \"`);
 
 function getComputerChoice() {
-    //generate random value. 
-    const cpurandomizer = Math.floor(Math.random() * 3);
-    let Botresult = cpurandomizer;
+  const cpurandomizer = Math.floor(Math.random() * 3);
 
-    //convert number into my desired result of Rock-paper-scissors.
-    if (Botresult === 0) {
-        Botresult = `Rock`;
-    } else if (Botresult === 1) {
-        Botresult = `Paper`;
-    } else {
-        Botresult = `Scissor`;
-    }
-
-    return Botresult
+  if (cpurandomizer === 0) return "Rock";
+  if (cpurandomizer === 1) return "Paper";
+  return "Scissor";
 }
 
-//check result here!
-console.log(`Bot threw: \"  ${getComputerChoice()}  \"`);
+function playRound(human, computer) {
+  if (!human) return "No valid human choice.";
 
-//show who is winning here!
-function ChoiceCompre() {
-    // same choices = draw
-    if (getHumanChoice === getComputerChoice) {
-        console.log(`Draw`);
-    } else { 
-        console.log(`Someone is winning here!`); // differnt choices = someone is winning here!
-    }
+  if (human === computer) {
+    return "You both draw";
+  } else if (human === "Rock" && computer === "Scissor") {
+    return "You win! Rock beats Scissor";
+  } else if (human === "Scissor" && computer === "Paper") {
+    return "You win! Scissor beats Paper";
+  } else if (human === "Paper" && computer === "Rock") {
+    return "You win! Paper beats Rock";
+  } else {
+    return `CPU wins! ${computer} beats ${human}`;
+  }
 }
-
-ChoiceCompre();
 
 let humanScore = 0;
 let computerScore = 0;
 
-function playRound(humanScore, computerScore) {
+function scoreCount(roundResult) {
+  if (!roundResult) return;
 
+  if (roundResult.includes("You win!")) {
+    humanScore++;
+  } else if (roundResult.includes("CPU wins!")) {
+    computerScore++;
+  } else if (roundResult.includes("draw")) {
+    console.log("Tie — no score change");
+  }
 }
+
+// run one round
+const human = getHumanChoice();
+const computer = getComputerChoice();
+
+console.log(`You chose "${human}"`);
+console.log(`Bot threw "${computer}"`);
+
+const roundResult = playRound(human, computer);
+console.log(roundResult);
+
+scoreCount(roundResult);
+console.log(`Human: ${humanScore} VS Computer: ${computerScore}`);
